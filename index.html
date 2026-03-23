@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>Clase 3</title>
+</head>
+<body>
+    <div class="contenedor_titulo">
+        <h1 class="titulo">VALIDACIÓN DE ELEMENTOS DE FORMULARIO</h1>
+    </div>
+    
+    <form action="loquesea.php" method="get" class="form" name="formulariovalidacion">
+        <div class="contenedor_secciones">
+            <div class="secciones">
+                <div class="contenedor_titulo_form">
+                    <h2 class="subtitulos_form">Datos del alumno</h2>
+                </div>
+                <div class="contenedor_inputs">
+                    <input type="text" class="inputs completos" placeholder="Escribe tu nombre" id="nombrecompleto" name="nombrecompleto" maxlength="30"><br>
+                    <input type="email" class="inputs completos" placeholder="Escribe tu email" id="email" name="email" required>
+                </div>
+            </div>
+
+            <div class="secciones">
+                <div class="contenedor_titulo_form">
+                    <h2 class="subtitulos_form">Actividades extraescolares  </h2>
+                </div>
+                <div class="contenedor_inputs">
+                    <input type="checkbox" id="curso1" class="inputs actividades" value="Programacion web" name="curso1">
+                    <label for="curso1">Deporte (futbol, béisbol, basketball,voleibol)</label><br>
+                    <input type="checkbox" id="curso2" class="inputs actividades" value="backend" name="curso2">
+                    <label for="curso2">Club de programación</label><br>
+                    <input type="checkbox" id="curso3" class="inputs actividades" value="frontend" name="curso3">
+                    <label for="curso3">Capítulo de Sistemas</label>
+                </div>
+            </div>
+
+            <div class="secciones">
+                <div class="contenedor_titulo_form">
+                    <h2 class="subtitulos_form">Dominio dle idioma de ingles</h2>
+                </div>
+                <div class="contenedor_inputs">
+                    <input type="radio" id="Avanzado" class="inputs idioma_ingles" name="ingles" value="avanzado" checked>
+                    <label for="avanzado">Avanzado</label><br>
+                    <input type="radio" id="intermedio" class="inputs idioma_ingles" name="ingles" value="Intermedio">
+                    <label for="intermedio">Intermedio</label><br>
+                    <input type="radio" id="basico" class="inputs idioma_ingles" name="ingles" value="basico">
+                    <label for="basico">Básico</label><br>
+                </div>
+            </div>
+
+            <div class="secciones">
+                <div class="contenedor_titulo_form">
+                    <h2 class="subtitulos_form">Unidades</h2>
+                </div>
+                <div class="contenedor_inputs">
+                    <select name="unidades" id="unidades">
+                        <option value="">Seleccione una opción</option>
+                        <option value="1">Unidad 1</option>
+                        <option value="2">Unidad 2</option>
+                        <option value="3">Unidad 3</option>
+                        <option value="Proyect">Proyecto Final</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="contenedor_boton_enviar">
+                <button type="button" id="btn_validar" class="btn_rojo" >Validar Elementos</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $("#btn_validar").click(function() {
+            let nombre = $("#nombrecompleto").val().trim();
+            let email = $("#email").val().trim();
+            let unidades = $("#unidades").val();
+            let expresion_correo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (nombre === ''){
+                alert("No escribiste tu nombre");
+                $("#nombrecompleto").focus();
+                return false
+            }
+
+            if (email === ''){
+                alert("no escribiste tu email");
+                $('#email').focus();
+                return false
+            }
+
+            if(!expresion_correo.test(email)){
+                alert("escribiste tu email vacio");
+                $('#email').focus();
+                return false
+            }
+
+            if(!$(".actividades").is(":checked")){
+                alert("Debes seleccionar al menos una actividad extraescolar");
+                $(".actividades").first().focus();
+                return false
+            }
+            
+            if(!$(".idioma_ingles").is(":checked")) {
+                alert("Debes seleccionar una idioma");
+                $(".idioma_ingles").first().focus();
+                return false
+            }
+
+            if (unidades === '') {
+                alert("Debes seleccionar una opcion en unidades");
+                $(".idioma_ingles").first().focus();
+                return false
+            }
+            })
+        });
+    </script>
+
+</body>
+</html>
